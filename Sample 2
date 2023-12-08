@@ -1,0 +1,59 @@
+Question 2:
+
+Given an array of integers nums and an integer target, return indices of the two numbers such that they add up to target.
+You may assume that each input would have exactly one solution, and you may not use the same element twice.
+You can return the answer in any order.
+
+Solution:
+
+Prerequisites:
+unordered_map represents a hash table. A hash table is a datastructure which is similar to array with key value pairss instead of index value pair.
+In this code we change index to value and value to index with the help of key value pairs to make the search easier.
+ie key represents the data stored in ith index of array where value represents i.
+
+Intuition:
+If complement of the number is added to the number, target is obtained. 
+If the complement of a number is present in hash table, then we have to obtain its index and the present index we are working on.
+
+Approach:
+The approach is based on using a hash map to store the indices of elements as they are processed.
+For each element, the code calculates the complement (the value needed for the sum to be equal to the target).
+It then checks if the complement is already in the hash map. If yes, it means a pair is found, and the indices are returned.
+If not, the current element and its index are added to the hash map for future lookups.
+
+Complexity:
+Time complexity:
+O(N)
+Space complexity:
+O(N)
+
+Code:
+
+#include <vector>
+#include <unordered_map>
+#include <algorithm>
+
+class Solution {
+public:
+    vector<int> twoSum(vector<int>& nums, int target) {
+        vector<int> result;
+        unordered_map<int, int> hash;
+
+        for (int i = 0; i < nums.size(); i++) {
+            int complement = target - nums[i];
+
+            // Check if the complement is present in the hash map
+            if (hash.find(complement) != hash.end()) {
+                // Add the indices to the result vector
+                result.push_back(hash[complement]);
+                result.push_back(i);
+                break;
+            }
+
+            // Insert the current element and its index into the hash map
+            hash[nums[i]] = i;
+        }
+
+        return result;
+    }
+};
