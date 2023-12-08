@@ -1,0 +1,61 @@
+Intuition:
+
+Generally to convert a binary number to decimal, assign powers of 2 to each bit from right to left (starting with 2^0). Multiply each bit by its corresponding power of 2, then sum the results.
+for example:
+101=2^2(1)+2^1(0)+2^0(1)=5
+In a linked list representation,
+1 -> 0 -> 1 -> NULL
+we don know with what power of 2 we should multiply the head and the next bits so we start by considering that we only have the head and multiply it with 2^0:
+so now we have 12^0=2
+we store it in some temporary variable to not loose its value;
+temp=2;
+if the next element is there then our assumption that there is only digit is wrong, so we assume that we have 2 digits and multiply the previously obtained value to one power of 2 and add the current bit * 2^0 to the temp.
+so now our temp= 12^1+02^0
+if the next element is there then our assumption that there are only two digits is wrong, so we assume that we have 3 digits and multiply the previously obtained value to one power of 2 and add the current bit * 2^0 to the temp.
+now our temp= 12^2+02^1+12^0
+there is no element to the next so our value will be returned;
+
+Approach:
+Initialization: Start with an initial decimal value of 0.
+
+Traverse Linked List: Begin traversing the linked list from the head.
+
+Update Decimal Value: As you encounter each binary digit in the linked list, update the decimal value. This update involves multiplying the current decimal value by 2 (left shift) and adding the current binary digit.
+
+Move to Next Digit: Move to the next binary digit in the linked list and repeat the process.
+
+Completion: Once you have traversed the entire linked list, the decimal value represents the equivalent decimal number of the binary representation stored in the linked list.
+
+Complexity:
+
+Time complexity:
+O(n)
+Space complexity:
+O(1)
+
+Code
+/**
+ * Definition for singly-linked list.
+ * struct ListNode {
+ *     int val;
+ *     ListNode *next;
+ *     ListNode() : val(0), next(nullptr) {}
+ *     ListNode(int x) : val(x), next(nullptr) {}
+ *     ListNode(int x, ListNode *next) : val(x), next(next) {}
+ * };
+ */
+class Solution {
+public:
+    int getDecimalValue(ListNode* head) {
+        int i=0;
+        ListNode *ptr=head;
+        while(ptr!=nullptr)
+        {
+            i+=ptr->val;
+            ptr=ptr->next;
+            if(ptr!=nullptr)
+                 i=i*2;
+        }
+        return i;
+    }
+};
