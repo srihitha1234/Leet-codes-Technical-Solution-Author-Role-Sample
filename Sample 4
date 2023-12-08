@@ -1,0 +1,55 @@
+Question:
+Hercy wants to save money for his first car. He puts money in the Leetcode bank every day.
+He starts by putting in $1 on Monday, the first day. Every day from Tuesday to Sunday, he will put in $1 more than the day before. 
+On every subsequent Monday, he will put in $1 more than the previous Monday.
+Given n, return the total amount of money he will have in the Leetcode bank at the end of the nth day.
+
+Solution:
+
+Intuition:
+Keeping track of money for each day, and adding this money to the toltal money in bank account.
+
+Approach:
+The function initializes sum to 1, representing the initial amount of money.
+It also initializes money to 1, which represents the amount of money for the current week, and i to 2, representing the second day of the week .
+The while loop runs as long as i is less than or equal to n, the total number of weeks.
+Inside the loop, if the current day is monday of a new cycle (i.e., (i % 7 == 1)), the person loses 5 units of money (money = money - 5) 
+since the money will be 1 more than previous weeks monday, and the total amount is updated (sum += money).
+Otherwise, in a regular day, the person gains 1 unit of money (money++) than the before day and the total amount is updated.
+The loop continues until all days are processed,and the final sum is returned.
+
+Complexity:
+Time complexity:
+O(n)
+Space complexity:
+O(1)
+
+Code:
+
+class Solution {
+public:
+    int totalMoney(int n) {
+        if(n==0)
+            return 0;
+    int sum=1;
+    int money=1,i=2;
+    while(i<=n)
+    {
+        if(i%7==1)
+        {
+            money=money-5;
+            sum+=money;
+            i++;
+            continue;
+        }
+        else
+        {
+            money++;
+            sum+=money;
+            i++;
+            continue;
+        }
+    }
+    return sum;
+    }
+};
